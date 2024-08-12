@@ -39,11 +39,11 @@ public class CMD_build implements CommandExecutor, TabCompleter {
                 if (build.contains(targetplayer.getUniqueId())) {
                     build.remove(targetplayer.getUniqueId());
                     targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.off")));
-                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.setoff")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + ConfigMessages(LobbyMain.messageyml.getString("Message.build.setoff"))));
                 } else {
                     build.add(targetplayer.getUniqueId());
                     targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.on")));
-                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.seton")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + ConfigMessages(LobbyMain.messageyml.getString("Message.build.seton"))));
                 }
             }
 
@@ -64,5 +64,12 @@ public class CMD_build implements CommandExecutor, TabCompleter {
             }
         }
         return list;
+    }
+
+    private static String ConfigMessages(String message) {
+        if (message.contains("%targetplayer%")) {
+            return message.replace("%targetplayer%", targetplayer.getName());
+        }
+        return message;
     }
 }

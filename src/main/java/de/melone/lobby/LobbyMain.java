@@ -90,7 +90,7 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.gamemode.Spectator", "You are now in Spectator Mode");
 
         messageyml.set("Message.gamemode.setCreative", "You have set the player %targetplayer% to Creative mode");
-        messageyml.set("Message.gamemode.setSurvival", "YYou have set the player %targetplayer% to survival mode");
+        messageyml.set("Message.gamemode.setSurvival", "You have set the player %targetplayer% to survival mode");
         messageyml.set("Message.gamemode.setAdventure", "You have set the player %targetplayer% to Adventure mode");
         messageyml.set("Message.gamemode.setSpectator", "You have set the player %targetplayer% to Spectator mode");
 
@@ -105,6 +105,7 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.fly.off", "You can`t now fly");
         messageyml.set("Message.fly.seton", "The Player %targetplayer% can now fly");
         messageyml.set("Message.fly.setoff", "The Player %targetplayer% can't now fly");
+
 
         try {
             messageyml.save(messagefile);

@@ -38,11 +38,11 @@ public class CMD_fly implements CommandExecutor {
 
                 if (fly.contains(targetplayer.getUniqueId())){
                     targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.fly.off")));
-                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.fly.setoff")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + ConfigMessages(LobbyMain.messageyml.getString("Message.fly.setoff"))));
                     targetplayer.setFlying(false);
                 } else {
                     targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.fly.on")));
-                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.fly.seton")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + ConfigMessages(LobbyMain.messageyml.getString("Message.fly.seton"))));
                     targetplayer.setFlying(true);
                 }
             } else {
