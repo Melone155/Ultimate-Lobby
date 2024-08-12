@@ -1,7 +1,10 @@
 package de.melone.lobby;
 
 import com.mojang.brigadier.Command;
+import de.melone.lobby.cmd.CMD_build;
 import de.melone.lobby.cmd.CMD_gm;
+import de.melone.lobby.listener.Buildlistener;
+import de.melone.lobby.listener.JoinQuit;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -41,10 +44,14 @@ public final class LobbyMain extends JavaPlugin {
 
     private void registercommands() {
         getCommand("gm").setExecutor(new CMD_gm());
+        getCommand("build").setExecutor(new CMD_build());
     }
 
     private void registerlistener() {
         final PluginManager pluginManager = super.getServer().getPluginManager();
+
+        pluginManager.registerEvents(new Buildlistener(), this);
+        pluginManager.registerEvents(new JoinQuit(), this);
     }
 
     private void registerconfig() {
