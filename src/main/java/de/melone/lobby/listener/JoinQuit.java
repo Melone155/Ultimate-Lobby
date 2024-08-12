@@ -1,5 +1,6 @@
 package de.melone.lobby.listener;
 
+import de.melone.lobby.LobbyMain;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,17 +34,17 @@ public class JoinQuit implements Listener {
 
         ItemStack nav = new ItemStack(Material.RECOVERY_COMPASS);
         ItemMeta navmeta = nav.getItemMeta();
-        navmeta.setDisplayName("§6§lNavigator");
+        navmeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.Navigator"));
         nav.setItemMeta(navmeta);
 
         ItemStack hide = new ItemStack(Material.GRAY_DYE);
         ItemMeta hidemeta = hide.getItemMeta();
-        hidemeta.setDisplayName("Spieler Verstecken");
+        hidemeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.PlayerHider"));
         hide.setItemMeta(hidemeta);
 
         ItemStack friends = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta friendsmeta = friends.getItemMeta();
-        friendsmeta.setDisplayName("Freunde");
+        friendsmeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.Friends"));
         friends.setItemMeta(friendsmeta);
 
         player.getInventory().setItem(0, nav);

@@ -106,6 +106,9 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.fly.seton", "The Player %targetplayer% can now fly");
         messageyml.set("Message.fly.setoff", "The Player %targetplayer% can't now fly");
 
+        messageyml.set("Message.items.Navigator", "Navigator");
+        messageyml.set("Message.items.PlayerHider", "Playerhider");
+        messageyml.set("Message.items.Friends", "Friends");
 
         try {
             messageyml.save(messagefile);
