@@ -2,6 +2,7 @@ package de.melone.lobby;
 
 import com.mojang.brigadier.Command;
 import de.melone.lobby.cmd.CMD_build;
+import de.melone.lobby.cmd.CMD_fly;
 import de.melone.lobby.cmd.CMD_gm;
 import de.melone.lobby.listener.Buildlistener;
 import de.melone.lobby.listener.JoinQuit;
@@ -45,6 +46,7 @@ public final class LobbyMain extends JavaPlugin {
     private void registercommands() {
         getCommand("gm").setExecutor(new CMD_gm());
         getCommand("build").setExecutor(new CMD_build());
+        getCommand("fly").setExecutor(new CMD_fly());
     }
 
     private void registerlistener() {
@@ -92,10 +94,17 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.gamemode.setAdventure", "You have set the player %targetplayer% to Adventure mode");
         messageyml.set("Message.gamemode.setSpectator", "You have set the player %targetplayer% to Spectator mode");
 
-        messageyml.set("Message.build.off", "You can`t build now");
+        messageyml.set("Message.build.help", "Use /build [Player]");
+        messageyml.set("Message.build.off", "You can't build now");
         messageyml.set("Message.build.on", "you can build now");
         messageyml.set("Message.build.seton", "The Player %targetplayer% can build now");
-        messageyml.set("Message.build.setoff", "The Player %targetplayer% can`t build now");
+        messageyml.set("Message.build.setoff", "The Player %targetplayer% can't build now");
+
+        messageyml.set("Message.fly.help", "Use /fly [Player]");
+        messageyml.set("Message.fly.on", "You can now fly");
+        messageyml.set("Message.fly.off", "You can`t now fly");
+        messageyml.set("Message.fly.seton", "The Player %targetplayer% can now fly");
+        messageyml.set("Message.fly.setoff", "The Player %targetplayer% can't now fly");
 
         try {
             messageyml.save(messagefile);
