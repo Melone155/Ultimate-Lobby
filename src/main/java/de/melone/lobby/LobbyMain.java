@@ -26,6 +26,9 @@ public final class LobbyMain extends JavaPlugin {
     public static File messagefile = new File("plugins//Lobby//Messages.yml");
     public static YamlConfiguration messageyml = YamlConfiguration.loadConfiguration(messagefile);
 
+    public static File configfile = new File("plugins//Lobby//Config.yml");
+    public static YamlConfiguration configyml = YamlConfiguration.loadConfiguration(configfile);
+
     public static String prefix = messageyml.getString("Message.prefix");
     public static String noperms = messageyml.getString("Message.noperms");
 
@@ -70,6 +73,15 @@ public final class LobbyMain extends JavaPlugin {
                 throw new RuntimeException(e);
             }
         }
+
+        if (!configfile.exists()){
+            try {
+                configfile.createNewFile();
+                Config();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void NoSQLConfig(){
@@ -81,6 +93,8 @@ public final class LobbyMain extends JavaPlugin {
 
         messageyml.set("Message.prefix","[Prefix]");
         messageyml.set("Message.noperms", "You have no permissions for this Command");
+        messageyml.set("Message.setspawn", "You Have set The Spawn");
+        messageyml.set("Message.error", "oh no it seems something has gone wrong");
 
         messageyml.set("Message.help", "Use /gm <0,1,2,3> [Player]");
 
@@ -110,8 +124,19 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.items.PlayerHider", "Playerhider");
         messageyml.set("Message.items.Friends", "Friends");
 
+
         try {
             messageyml.save(messagefile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void Config(){
+        configyml.set(".", "#Please do not change this file if you have no idea please use the commands for it so that there are no errors");
+
+        try {
+            configyml.save(configfile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
