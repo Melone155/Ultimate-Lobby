@@ -1,5 +1,6 @@
 package de.melone.lobby.listener;
 
+import de.melone.lobby.LobbyMain;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,10 +12,19 @@ public class Updates {
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookmeta = (BookMeta) book.getItemMeta();
-        bookmeta.setDisplayName("Updates");
-        bookmeta.setTitle("Updates");
+        bookmeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.Updatebook"));
+        bookmeta.setTitle(LobbyMain.messageyml.getString("Message.items.Updatebook"));
         bookmeta.setAuthor("Admin Team");
-        bookmeta.setPages("§lUpdates vom DD.MM.JJJJ \n \n§rEs sind noch keine Relevate Update verfügbar");
+
+        int counter = 1;
+        int BookPages = LobbyMain.messageyml.getInt("Message.book.Pages");
+        String Pagecounter = "Message.book.Page" + counter;
+
+        for (int i = 0; i < BookPages; i++) {
+            bookmeta.setPages(LobbyMain.messageyml.getString(Pagecounter));
+            counter++;
+        }
+
         book.setItemMeta(bookmeta);
 
         player.getInventory().setItem(1, book);

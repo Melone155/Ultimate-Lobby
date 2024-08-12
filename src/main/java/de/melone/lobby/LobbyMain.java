@@ -4,6 +4,7 @@ import com.mojang.brigadier.Command;
 import de.melone.lobby.cmd.CMD_build;
 import de.melone.lobby.cmd.CMD_fly;
 import de.melone.lobby.cmd.CMD_gm;
+import de.melone.lobby.cmd.CMD_setspawn;
 import de.melone.lobby.listener.Buildlistener;
 import de.melone.lobby.listener.JoinQuit;
 import io.papermc.paper.command.brigadier.Commands;
@@ -50,6 +51,7 @@ public final class LobbyMain extends JavaPlugin {
         getCommand("gm").setExecutor(new CMD_gm());
         getCommand("build").setExecutor(new CMD_build());
         getCommand("fly").setExecutor(new CMD_fly());
+        getCommand("setspawn").setExecutor(new CMD_setspawn());
     }
 
     private void registerlistener() {
@@ -123,6 +125,13 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.items.Navigator", "Navigator");
         messageyml.set("Message.items.PlayerHider", "Playerhider");
         messageyml.set("Message.items.Friends", "Friends");
+        messageyml.set("Message.items.Updatebook", "Updates");
+
+        messageyml.set("Message.book", "#If you need more book pages, you can copy page1 or page2, but this must always correspond to the pages, otherwise errors may occur ");
+        messageyml.set("Message.book.Author", "Server Team");
+        messageyml.set("Message.book.Pages", 2);
+        messageyml.set("Message.book.Page1", "This is your first Update Page");
+        messageyml.set("Message.book.Page2", "This is your Second Update Page");
 
 
         try {
