@@ -18,6 +18,7 @@ import java.util.UUID;
 public class CMD_build implements CommandExecutor, TabCompleter {
 
     public static ArrayList<UUID> build = new ArrayList<>();
+    private static Player targetplayer;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] args) {
@@ -32,7 +33,20 @@ public class CMD_build implements CommandExecutor, TabCompleter {
                     build.add(player.getUniqueId());
                     player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.on")));
                 }
+            } else if(args.length == 1){
+                targetplayer = Bukkit.getPlayer(args[0]);
+
+                if (build.contains(targetplayer.getUniqueId())) {
+                    build.remove(targetplayer.getUniqueId());
+                    targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.off")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.setoff")));
+                } else {
+                    build.add(targetplayer.getUniqueId());
+                    targetplayer.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.on")));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.build.seton")));
+                }
             }
+
         } else {
             player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + LobbyMain.noperms));
         }
