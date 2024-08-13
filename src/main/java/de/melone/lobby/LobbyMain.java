@@ -19,12 +19,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Objects;
 
 public final class LobbyMain extends JavaPlugin {
 
     File folder = new File("plugins/Lobby");
+
 
     public static File messagefile = new File("plugins//Lobby//Messages.yml");
     public static YamlConfiguration messageyml = YamlConfiguration.loadConfiguration(messagefile);
@@ -95,12 +99,20 @@ public final class LobbyMain extends JavaPlugin {
     }
 
     private void MessageConfig(){
-        messageyml.set(".", "#All die Messages Support MiniMessages \n https://docs.advntr.dev/minimessage/format.html\n \n");
+        String info = "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html";
 
-        messageyml.set("Message.prefix","[Prefix]");
+        // Schreibe den Infotext in die Datei
+        try {
+            Files.write(messagefile.toPath(), info.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Setze die Standardwerte für die Nachrichten
+        messageyml.set("Message.prefix", "[Prefix]");
         messageyml.set("Message.noperms", "You have no permissions for this Command");
         messageyml.set("Message.setspawn", "You Have set The Spawn");
-        messageyml.set("Message.error", "oh no it seems something has gone wrong");
+        messageyml.set("Message.error", "Oh no, it seems something has gone wrong");
 
         messageyml.set("Message.help", "Use /gm <0,1,2,3> [Player]");
 
@@ -122,34 +134,57 @@ public final class LobbyMain extends JavaPlugin {
 
         messageyml.set("Message.fly.help", "Use /fly [Player]");
         messageyml.set("Message.fly.on", "You can now fly");
-        messageyml.set("Message.fly.off", "You can`t now fly");
+        messageyml.set("Message.fly.off", "You can't fly now");
         messageyml.set("Message.fly.seton", "The Player %targetplayer% can now fly");
-        messageyml.set("Message.fly.setoff", "The Player %targetplayer% can't now fly");
+        messageyml.set("Message.fly.setoff", "The Player %targetplayer% can't fly now");
 
         messageyml.set("Message.items.Navigator", "Navigator");
         messageyml.set("Message.items.PlayerHider", "Playerhider");
-        messageyml.set("Message.items.Friends", "Friends");
         messageyml.set("Message.items.Updatebook", "Updates");
 
-        messageyml.set("Message.book", "#If you need more book pages, you can copy page1 or page2, but this must always correspond to the pages, otherwise errors may occur ");
+        messageyml.set("Message.book", "# If you need more book pages, you can copy page1 or page2, but this must always correspond to the pages, otherwise errors may occur ");
         messageyml.set("Message.book.Author", "Server Team");
         messageyml.set("Message.book.Pages", 2);
         messageyml.set("Message.book.Page1", "This is your first Update Page");
         messageyml.set("Message.book.Page2", "This is your Second Update Page");
 
-
+        // Speichere die Konfiguration
         try {
             messageyml.save(messagefile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Füge den Infotext am Anfang der Datei hinzu
+        try {
+            String content = new String(Files.readAllBytes(messagefile.toPath()), StandardCharsets.UTF_8);
+            content = info + content;
+            Files.write(messagefile.toPath(), content.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private static void Config(){
-        configyml.set(".", "#Please do not change this file if you have no idea please use the commands for it so that there are no errors");
+        String info = "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html";
+
+        // Schreibe den Infotext in die Datei
+        try {
+            Files.write(messagefile.toPath(), info.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             configyml.save(configfile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            String content = new String(Files.readAllBytes(configfile.toPath()), StandardCharsets.UTF_8);
+            content = info + content;
+            Files.write(configfile.toPath(), content.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

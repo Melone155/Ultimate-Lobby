@@ -20,7 +20,6 @@ public class Updates {
         for (int i = 0; i < BookPages; i++) {
             String Pagecounter = "Message.book.Page" + counter;
             pages.add(LobbyMain.messageyml.getString(Pagecounter));
-            System.out.println(Pagecounter);
             counter++;
         }
     }

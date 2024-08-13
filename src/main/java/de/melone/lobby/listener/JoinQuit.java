@@ -44,15 +44,9 @@ public class JoinQuit implements Listener {
         hidemeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.PlayerHider"));
         hide.setItemMeta(hidemeta);
 
-        ItemStack friends = new ItemStack(Material.PLAYER_HEAD);
-        ItemMeta friendsmeta = friends.getItemMeta();
-        friendsmeta.setDisplayName(LobbyMain.messageyml.getString("Message.items.Friends"));
-        friends.setItemMeta(friendsmeta);
-
         player.getInventory().setItem(0, nav);
         new Updates().UpdateBook(player);
-        player.getInventory().setItem(7, hide);
-        player.getInventory().setItem(8, friends);
+        player.getInventory().setItem(8, hide);
 
     }
 }
