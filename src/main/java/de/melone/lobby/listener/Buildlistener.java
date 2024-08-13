@@ -39,18 +39,13 @@ public class Buildlistener implements Listener {
     }
 
     @EventHandler
-    public void onleaves(LeavesDecayEvent event) {
-        event.setCancelled(true);
-    }
-
-    @EventHandler
     public void onsinge(SignChangeEvent event) {
         Player player = event.getPlayer();
         event.setCancelled(!CMD_build.build.contains(player.getName()));
     }
 
     @EventHandler
-    public void on(PlayerInteractAtEntityEvent event){
+    public void onArmor(PlayerInteractAtEntityEvent event){
         Player player = event.getPlayer();
         if (event.getRightClicked().getType() == EntityType.ARMOR_STAND){
             event.setCancelled(!CMD_build.build.contains(player.getName()));

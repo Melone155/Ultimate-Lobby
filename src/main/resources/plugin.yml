@@ -7,3 +7,4 @@ commands:
   gm:
   build:
   fly:
+  setspawn:

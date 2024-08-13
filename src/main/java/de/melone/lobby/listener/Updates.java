@@ -6,9 +6,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Updates {
 
+    private static List<String> pages = new ArrayList<>();
+
+    public static void LoadeBook(){
+        int counter = 1;
+        int BookPages = LobbyMain.messageyml.getInt("Message.book.Pages");
+
+        for (int i = 0; i < BookPages; i++) {
+            String Pagecounter = "Message.book.Page" + counter;
+            pages.add(LobbyMain.messageyml.getString(Pagecounter));
+            System.out.println(Pagecounter);
+            counter++;
+        }
+    }
+
     public void UpdateBook(Player player){
+
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookmeta = (BookMeta) book.getItemMeta();
@@ -16,15 +34,7 @@ public class Updates {
         bookmeta.setTitle(LobbyMain.messageyml.getString("Message.items.Updatebook"));
         bookmeta.setAuthor("Admin Team");
 
-        int counter = 1;
-        int BookPages = LobbyMain.messageyml.getInt("Message.book.Pages");
-        String Pagecounter = "Message.book.Page" + counter;
-
-        for (int i = 0; i < BookPages; i++) {
-            bookmeta.setPages(LobbyMain.messageyml.getString(Pagecounter));
-            counter++;
-        }
-
+        bookmeta.addPage(pages.toArray(new String[0]));
         book.setItemMeta(bookmeta);
 
         player.getInventory().setItem(1, book);

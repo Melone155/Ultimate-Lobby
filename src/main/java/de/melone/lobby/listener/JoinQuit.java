@@ -1,6 +1,7 @@
 package de.melone.lobby.listener;
 
 import de.melone.lobby.LobbyMain;
+import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,7 @@ public class JoinQuit implements Listener {
         event.joinMessage(null);
 
         LobbyItems(player);
+        event.getPlayer().getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
     }
 
     @EventHandler

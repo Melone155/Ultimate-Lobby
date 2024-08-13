@@ -6,7 +6,9 @@ import de.melone.lobby.cmd.CMD_fly;
 import de.melone.lobby.cmd.CMD_gm;
 import de.melone.lobby.cmd.CMD_setspawn;
 import de.melone.lobby.listener.Buildlistener;
+import de.melone.lobby.listener.CancelledEvent;
 import de.melone.lobby.listener.JoinQuit;
+import de.melone.lobby.listener.Updates;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -40,6 +42,7 @@ public final class LobbyMain extends JavaPlugin {
         registerlistener();
         registerconfig();
 
+        Updates.LoadeBook();
     }
 
     @Override
@@ -59,6 +62,7 @@ public final class LobbyMain extends JavaPlugin {
 
         pluginManager.registerEvents(new Buildlistener(), this);
         pluginManager.registerEvents(new JoinQuit(), this);
+        pluginManager.registerEvents(new CancelledEvent(), this);
     }
 
     private void registerconfig() {
