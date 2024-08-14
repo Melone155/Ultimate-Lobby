@@ -239,7 +239,6 @@ public final class LobbyMain extends JavaPlugin {
     private static void Config(){
         String info = "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html";
 
-        // Schreibe den Infotext in die Datei
         try {
             Files.write(messagefile.toPath(), info.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
         } catch (IOException e) {
