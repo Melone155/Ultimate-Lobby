@@ -148,14 +148,52 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.book.Page1", "This is your first Update Page");
         messageyml.set("Message.book.Page2", "This is your Second Update Page");
 
-        // Speichere die Konfiguration
+        messageyml.set("Message.Navigator.item1.Name", "Spawn");
+        messageyml.set("Message.Navigator.item1.Material", "NETHER_STAR");
+        messageyml.set("Message.Navigator.item1.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item2.Name", "Item2");
+        messageyml.set("Message.Navigator.item2.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item2.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item3.Name", "Item3");
+        messageyml.set("Message.Navigator.item3.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item3.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item4.Name", "Item4");
+        messageyml.set("Message.Navigator.item4.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item4.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item5.Name", "Item5");
+        messageyml.set("Message.Navigator.item5.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item5.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item6.Name", "Item6");
+        messageyml.set("Message.Navigator.item6.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item6.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item7.Name", "Item7");
+        messageyml.set("Message.Navigator.item7.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item7.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item8.Name", "Item8");
+        messageyml.set("Message.Navigator.item8.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item8.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item9.Name", "Item9");
+        messageyml.set("Message.Navigator.item9.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item9.Function", "funktion");
+
+        messageyml.set("Message.Navigator.item10.Name", "Item10");
+        messageyml.set("Message.Navigator.item10.Material", "BARRIER");
+        messageyml.set("Message.Navigator.item10.Function", "funktion");
+
         try {
             messageyml.save(messagefile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        // Füge den Infotext am Anfang der Datei hinzu
         try {
             String content = new String(Files.readAllBytes(messagefile.toPath()), StandardCharsets.UTF_8);
             content = info + content;
