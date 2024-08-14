@@ -1,4 +1,4 @@
-name: Ultimate Lobby
+name: Ultimate-Lobby
 version: '1.0-SNAPSHOT'
 main: de.melone.lobby.LobbyMain
 api-version: '1.21'
