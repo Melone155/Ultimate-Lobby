@@ -31,11 +31,14 @@ public class CMD_warp implements CommandExecutor {
                 double Xdouble = X + 0.5;
                 double Ydouble = Y + 0.5;
 
+                String world = player.getLocation().getWorld().toString();
+
                 LobbyMain.configyml.set(warpname + ".X", Xdouble);
                 LobbyMain.configyml.set(warpname+ ".Y", Ydouble);
                 LobbyMain.configyml.set(warpname + ".Z", Z);
                 LobbyMain.configyml.set(warpname + ".Yaw", Yaw);
                 LobbyMain.configyml.set(warpname + ".Pitch", Pitch);
+                LobbyMain.configyml.set(warpname + ".World", Pitch);
 
                 try {
                     LobbyMain.configyml.save(LobbyMain.configfile);

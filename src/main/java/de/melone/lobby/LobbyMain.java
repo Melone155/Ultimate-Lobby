@@ -2,10 +2,7 @@ package de.melone.lobby;
 
 import com.mojang.brigadier.Command;
 import de.melone.lobby.cmd.*;
-import de.melone.lobby.listener.Buildlistener;
-import de.melone.lobby.listener.CancelledEvent;
-import de.melone.lobby.listener.JoinQuit;
-import de.melone.lobby.listener.Updates;
+import de.melone.lobby.listener.*;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -26,7 +23,6 @@ public final class LobbyMain extends JavaPlugin {
 
     File folder = new File("plugins/Lobby");
 
-
     public static File messagefile = new File("plugins//Lobby//Messages.yml");
     public static YamlConfiguration messageyml = YamlConfiguration.loadConfiguration(messagefile);
 
@@ -36,6 +32,8 @@ public final class LobbyMain extends JavaPlugin {
     public static String prefix = messageyml.getString("Message.prefix");
     public static String noperms = messageyml.getString("Message.noperms");
 
+    public static LobbyMain plugin;
+
     @Override
     public void onEnable() {
 
@@ -44,6 +42,10 @@ public final class LobbyMain extends JavaPlugin {
         registerconfig();
 
         Updates.LoadeBook();
+
+        plugin = this;
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
     }
 
     @Override
@@ -65,6 +67,7 @@ public final class LobbyMain extends JavaPlugin {
         pluginManager.registerEvents(new Buildlistener(), this);
         pluginManager.registerEvents(new JoinQuit(), this);
         pluginManager.registerEvents(new CancelledEvent(), this);
+        pluginManager.registerEvents(new Navigator(this), this);
     }
 
     private void registerconfig() {
@@ -150,51 +153,71 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.Navigator.item1.Material", "NETHER_STAR");
         messageyml.set("Message.Navigator.item1.Function", "warp");
         messageyml.set("Message.Navigator.item1.server", "server");
+        messageyml.set("Message.Navigator.item1.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item1.message", "This is a message");
 
         messageyml.set("Message.Navigator.item2.Name", "Item2");
         messageyml.set("Message.Navigator.item2.Material", "BARRIER");
         messageyml.set("Message.Navigator.item2.Function", "server");
         messageyml.set("Message.Navigator.item2.server", "server");
+        messageyml.set("Message.Navigator.item2.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item2.message", "This is a message");
 
         messageyml.set("Message.Navigator.item3.Name", "Item3");
         messageyml.set("Message.Navigator.item3.Material", "BARRIER");
         messageyml.set("Message.Navigator.item3.Function", "funktion");
         messageyml.set("Message.Navigator.item3.server", "server");
+        messageyml.set("Message.Navigator.item3.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item3.message", "This is a message");
 
         messageyml.set("Message.Navigator.item4.Name", "Item4");
         messageyml.set("Message.Navigator.item4.Material", "BARRIER");
         messageyml.set("Message.Navigator.item4.Function", "funktion");
         messageyml.set("Message.Navigator.item4.server", "server");
+        messageyml.set("Message.Navigator.item4.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item4.message", "This is a message");
 
         messageyml.set("Message.Navigator.item5.Name", "Item5");
         messageyml.set("Message.Navigator.item5.Material", "BARRIER");
         messageyml.set("Message.Navigator.item5.Function", "funktion");
         messageyml.set("Message.Navigator.item5.server", "server");
+        messageyml.set("Message.Navigator.item5.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item5.message", "This is a message");
 
         messageyml.set("Message.Navigator.item6.Name", "Item6");
         messageyml.set("Message.Navigator.item6.Material", "BARRIER");
         messageyml.set("Message.Navigator.item6.Function", "funktion");
         messageyml.set("Message.Navigator.item6.server", "server");
+        messageyml.set("Message.Navigator.item6.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item6.message", "This is a message");
 
         messageyml.set("Message.Navigator.item7.Name", "Item7");
         messageyml.set("Message.Navigator.item7.Material", "BARRIER");
         messageyml.set("Message.Navigator.item7.Function", "funktion");
         messageyml.set("Message.Navigator.item7.server", "server");
+        messageyml.set("Message.Navigator.item7.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item7.message", "This is a message");
 
         messageyml.set("Message.Navigator.item8.Name", "Item8");
         messageyml.set("Message.Navigator.item8.Material", "BARRIER");
         messageyml.set("Message.Navigator.item8.Function", "funktion");
         messageyml.set("Message.Navigator.item8.server", "server");
+        messageyml.set("Message.Navigator.item8.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item8.message", "This is a message");
 
         messageyml.set("Message.Navigator.item9.Name", "Item9");
         messageyml.set("Message.Navigator.item9.Material", "BARRIER");
         messageyml.set("Message.Navigator.item9.Function", "funktion");
         messageyml.set("Message.Navigator.item9.server", "server");
+        messageyml.set("Message.Navigator.item9.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item9.message", "This is a message");
 
         messageyml.set("Message.Navigator.item10.Name", "Item10");
         messageyml.set("Message.Navigator.item10.Material", "BARRIER");
         messageyml.set("Message.Navigator.item10.Function", "funktion");
         messageyml.set("Message.Navigator.item10.server", "server");
+        messageyml.set("Message.Navigator.item10.warpname", "Spawn");
+        messageyml.set("Message.Navigator.item10.message", "This is a message");
 
         messageyml.set("Message.help", "/setwarp <Name>");
 
@@ -236,5 +259,9 @@ public final class LobbyMain extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static LobbyMain getPlugin(){
+        return plugin;
     }
 }

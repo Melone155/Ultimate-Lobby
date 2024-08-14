@@ -27,11 +27,14 @@ public class CMD_setspawn implements CommandExecutor {
             double Xdouble = X + 0.5;
             double Ydouble = Y + 0.5;
 
+            String World = player.getLocation().getWorld().toString();
+
             LobbyMain.configyml.set("Spawn.X", Xdouble);
             LobbyMain.configyml.set("Spawn.Y", Ydouble);
             LobbyMain.configyml.set("Spawn.Z", Z);
             LobbyMain.configyml.set("Spawn.Yaw", Yaw);
             LobbyMain.configyml.set("Spawn.Pitch", Pitch);
+            LobbyMain.configyml.set( "Spawn.World", World);
 
             try {
                 LobbyMain.configyml.save(LobbyMain.configfile);
