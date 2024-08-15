@@ -1,6 +1,7 @@
 package de.melone.lobby.listener;
 
 import de.melone.lobby.LobbyMain;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,6 +22,12 @@ public class JoinQuit implements Listener {
 
         LobbyItems(player);
         event.getPlayer().getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+
+        if (!(LobbyMain.updatemessage == null)){
+            if (player.hasPermission("lobby.update") || player.isOp()) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.updatemessage));
+            }
+        }
     }
 
     @EventHandler

@@ -3,9 +3,11 @@ package de.melone.lobby;
 import com.mojang.brigadier.Command;
 import de.melone.lobby.cmd.*;
 import de.melone.lobby.listener.*;
+import de.melone.lobby.ulti.UpdateChecker;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +33,7 @@ public final class LobbyMain extends JavaPlugin {
 
     public static String prefix = messageyml.getString("Message.prefix");
     public static String noperms = messageyml.getString("Message.noperms");
+    public static String updatemessage;
 
     public static LobbyMain plugin;
 
@@ -42,6 +45,8 @@ public final class LobbyMain extends JavaPlugin {
         registerconfig();
 
         Updates.LoadeBook();
+
+        SearchUpdate();
 
         plugin = this;
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -102,7 +107,6 @@ public final class LobbyMain extends JavaPlugin {
     private void MessageConfig(){
         String info = "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html";
 
-        // Schreibe den Infotext in die Datei
         try {
             Files.write(messagefile.toPath(), info.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
         } catch (IOException e) {
@@ -262,5 +266,15 @@ public final class LobbyMain extends JavaPlugin {
 
     public static LobbyMain getPlugin(){
         return plugin;
+    }
+
+    private static void SearchUpdate(){
+        new UpdateChecker(plugin, 118897).getVersion(version -> {
+            if (!plugin.getDescription().getVersion().equals(version)) {
+                Bukkit.getConsoleSender().sendMessage("§4Update for the Plugin Ultimate Lobby is now available");
+                Bukkit.getConsoleSender().sendMessage("§4https://www.spigotmc.org/resources/ultimate-lobby.118897/");
+                updatemessage = "§7Update for the Plugin Ultimate Lobby is now available \n Downloade Now <click:open_url:'https://docs.advntr.dev/minimessage'>Click here</click>";
+            }
+        });
     }
 }
