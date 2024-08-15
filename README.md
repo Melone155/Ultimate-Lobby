@@ -4,7 +4,7 @@ Ultimate Lobby is a Lobby Plugin which is almost completely customizable no matt
 
 
 
-## Anpassung
+## Customization
 
 If you want to customize the naviagtor you have to pay attention to the item names *(material)* must be written as they are called in minecrft
 
