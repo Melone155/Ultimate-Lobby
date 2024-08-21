@@ -32,7 +32,7 @@ public class Navigator implements Listener {
             if (event.hasItem()) {
                 if (event.getItem().getType() == Material.RECOVERY_COMPASS) {
 
-                    Inventory inv = Bukkit.createInventory(null, 54, "" + LobbyMain.messageyml.getString("Message.items.Navigator"));
+                    Inventory inv = Bukkit.createInventory(null, 54, LobbyMain.messageyml.getString("Message.items.Navigator"));
 
                     ItemStack leer = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
                     ItemMeta leermeta = leer.getItemMeta();

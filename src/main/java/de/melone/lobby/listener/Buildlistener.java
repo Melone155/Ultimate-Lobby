@@ -18,7 +18,7 @@ public class Buildlistener implements Listener {
     public void onBrack(BlockBreakEvent event) {
         Player p = event.getPlayer();
 
-        event.setCancelled(!CMD_build.build.contains(p.getName()));
+        event.setCancelled(!CMD_build.build.contains(p.getUniqueId()));
 
     }
 
@@ -26,7 +26,7 @@ public class Buildlistener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         Player p = event.getPlayer();
 
-        event.setCancelled(!CMD_build.build.contains(p.getName()));
+        event.setCancelled(!CMD_build.build.contains(p.getUniqueId()));
 
     }
 
@@ -34,21 +34,21 @@ public class Buildlistener implements Listener {
     public void ondrop(PlayerDropItemEvent event) {
         Player p = event.getPlayer();
 
-        event.setCancelled(!CMD_build.build.contains(p.getName()));
+        event.setCancelled(!CMD_build.build.contains(p.getUniqueId()));
 
     }
 
     @EventHandler
     public void onsinge(SignChangeEvent event) {
         Player player = event.getPlayer();
-        event.setCancelled(!CMD_build.build.contains(player.getName()));
+        event.setCancelled(!CMD_build.build.contains(player.getUniqueId()));
     }
 
     @EventHandler
     public void onArmor(PlayerInteractAtEntityEvent event){
         Player player = event.getPlayer();
         if (event.getRightClicked().getType() == EntityType.ARMOR_STAND){
-            event.setCancelled(!CMD_build.build.contains(player.getName()));
+            event.setCancelled(!CMD_build.build.contains(player.getUniqueId()));
         }
     }
 }

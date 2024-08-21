@@ -4,12 +4,8 @@ import com.mojang.brigadier.Command;
 import de.melone.lobby.cmd.*;
 import de.melone.lobby.listener.*;
 import de.melone.lobby.ulti.UpdateChecker;
-import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,8 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.Objects;
+
 
 public final class LobbyMain extends JavaPlugin {
 
@@ -31,7 +26,7 @@ public final class LobbyMain extends JavaPlugin {
     public static File configfile = new File("plugins//Lobby//Config.yml");
     public static YamlConfiguration configyml = YamlConfiguration.loadConfiguration(configfile);
 
-    public static String prefix = messageyml.getString("Message.prefix");
+    public static String prefix;
     public static String noperms = messageyml.getString("Message.noperms");
     public static String updatemessage;
 
@@ -40,13 +35,23 @@ public final class LobbyMain extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        registerconfig();
         registercommands();
         registerlistener();
-        registerconfig();
 
         Updates.LoadeBook();
 
-        SearchUpdate();
+        prefix = messageyml.getString("Message.prefix");
+
+        PlayerHide.loreset();
+
+        new UpdateChecker(this, 118897).getVersion(version -> {
+            if (!this.getDescription().getVersion().equals(version)) {
+                Bukkit.getConsoleSender().sendMessage("§4Update for the Plugin Ultimate Lobby is now available");
+                Bukkit.getConsoleSender().sendMessage("§4https://www.spigotmc.org/resources/ultimate-lobby.118897/");
+                updatemessage = "§7Update for the Plugin Ultimate Lobby is now available \n Downloade Now <click:open_url:'https://docs.advntr.dev/minimessage'>Click here</click>";
+            }
+        });
 
         plugin = this;
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -73,6 +78,7 @@ public final class LobbyMain extends JavaPlugin {
         pluginManager.registerEvents(new JoinQuit(), this);
         pluginManager.registerEvents(new CancelledEvent(), this);
         pluginManager.registerEvents(new Navigator(this), this);
+        pluginManager.registerEvents(new PlayerHide(this), this);
     }
 
     private void registerconfig() {
@@ -105,13 +111,7 @@ public final class LobbyMain extends JavaPlugin {
     }
 
     private void MessageConfig(){
-        String info = "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html";
-
-        try {
-            Files.write(messagefile.toPath(), info.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        messageyml.set("Info", "# All die Messages Support MiniMessages https://docs.advntr.dev/minimessage/format.html");
 
         // Setze die Standardwerte für die Nachrichten
         messageyml.set("Message.prefix", "[Prefix]");
@@ -152,6 +152,13 @@ public final class LobbyMain extends JavaPlugin {
         messageyml.set("Message.book.Pages", 2);
         messageyml.set("Message.book.Page1", "This is your first Update Page");
         messageyml.set("Message.book.Page2", "This is your Second Update Page");
+
+        messageyml.set("Message.Playerhider.ON.item", "Player Hiden");
+        messageyml.set("Message.Playerhider.ON.Message", "All players are now visible");
+        messageyml.set("Message.Playerhider.ON.lore", "Click to hide players");
+        messageyml.set("Message.Playerhider.Off.item", "Player displayed");
+        messageyml.set("Message.Playerhider.Off.Message", "All players are now invisible");
+        messageyml.set("Message.Playerhider.Off.lore", "All players are now invisible");
 
         messageyml.set("Message.Navigator.item1.Name", "Spawn");
         messageyml.set("Message.Navigator.item1.Material", "NETHER_STAR");
@@ -230,14 +237,6 @@ public final class LobbyMain extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        try {
-            String content = new String(Files.readAllBytes(messagefile.toPath()), StandardCharsets.UTF_8);
-            content = info + content;
-            Files.write(messagefile.toPath(), content.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static void Config(){
@@ -266,15 +265,5 @@ public final class LobbyMain extends JavaPlugin {
 
     public static LobbyMain getPlugin(){
         return plugin;
-    }
-
-    private static void SearchUpdate(){
-        new UpdateChecker(plugin, 118897).getVersion(version -> {
-            if (!plugin.getDescription().getVersion().equals(version)) {
-                Bukkit.getConsoleSender().sendMessage("§4Update for the Plugin Ultimate Lobby is now available");
-                Bukkit.getConsoleSender().sendMessage("§4https://www.spigotmc.org/resources/ultimate-lobby.118897/");
-                updatemessage = "§7Update for the Plugin Ultimate Lobby is now available \n Downloade Now <click:open_url:'https://docs.advntr.dev/minimessage'>Click here</click>";
-            }
-        });
     }
 }

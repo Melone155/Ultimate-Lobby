@@ -27,7 +27,7 @@ public class CMD_setspawn implements CommandExecutor {
             double Xdouble = X + 0.5;
             double Ydouble = Y + 0.5;
 
-            String World = player.getLocation().getWorld().toString();
+            String World = player.getLocation().getWorld().getName();
 
             LobbyMain.configyml.set("Spawn.X", Xdouble);
             LobbyMain.configyml.set("Spawn.Y", Ydouble);
@@ -41,7 +41,7 @@ public class CMD_setspawn implements CommandExecutor {
                 player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.setspawn")));
             } catch (IOException e) {
                 player.sendMessage(MiniMessage.miniMessage().deserialize(LobbyMain.prefix + " " + LobbyMain.messageyml.getString("Message.error")));
-                player.sendMessage(" \n \n" + e);
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<newline><newline>" + e));
                 System.out.println(e);
             }
 

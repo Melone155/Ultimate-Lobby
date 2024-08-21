@@ -31,7 +31,7 @@ public class CMD_warp implements CommandExecutor {
                 double Xdouble = X + 0.5;
                 double Ydouble = Y + 0.5;
 
-                String world = player.getLocation().getWorld().toString();
+                String world = player.getLocation().getWorld().getName();;
 
                 LobbyMain.configyml.set(warpname + ".X", Xdouble);
                 LobbyMain.configyml.set(warpname+ ".Y", Ydouble);
